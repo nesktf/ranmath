@@ -2,19 +2,20 @@
 #define RAN_HPP_
 
 // clang-format off
-#include "./version.hpp"
-#include "./concepts.hpp"
-#include "./constants.hpp"
-#include "./forward.hpp"
-#include "./vector2.hpp"
-#include "./vector3.hpp"
-#include "./vector4.hpp"
-#include "./matrix3x3.hpp"
-#include "./matrix4x4.hpp"
-#include "./quaternion.hpp"
-#include "./aabb.hpp"
-#include "./integrator.hpp"
-#include "./interpolator.hpp"
+#include <ranmath/version.hpp>
+#include <ranmath/concepts.hpp>
+#include <ranmath/constants.hpp>
+#include <ranmath/forward.hpp>
+#include <ranmath/funcs.hpp>
+#include <ranmath/vector2.hpp>
+#include <ranmath/vector3.hpp>
+#include <ranmath/vector4.hpp>
+#include <ranmath/matrix3x3.hpp>
+#include <ranmath/matrix4x4.hpp>
+#include <ranmath/quaternion.hpp>
+#include <ranmath/aabb.hpp>
+#include <ranmath/integrator.hpp>
+#include <ranmath/interpolator.hpp>
 // clang-format on
 
 #endif // #ifndef RAN_HPP_

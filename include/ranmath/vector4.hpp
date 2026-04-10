@@ -1,7 +1,7 @@
 #ifndef RAN_VECTOR4_HPP_
 #define RAN_VECTOR4_HPP_
 
-#include "./forward.hpp"
+#include <ranmath/forward.hpp>
 
 namespace ran {
 

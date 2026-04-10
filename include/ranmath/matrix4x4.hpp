@@ -1,7 +1,7 @@
 #ifndef RAN_MATRIX4X4_HPP_
 #define RAN_MATRIX4X4_HPP_
 
-#include "./forward.hpp"
+#include <ranmath/forward.hpp>
 
 namespace ran {
 

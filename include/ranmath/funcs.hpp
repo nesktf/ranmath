@@ -1,7 +1,7 @@
 #ifndef RAN_FUNCS_HPP_
 #define RAN_FUNCS_HPP_
 
-#include "./forward.hpp"
+#include <ranmath/forward.hpp>
 
 namespace ran {
 
@@ -150,7 +150,7 @@ RAN_DEF auto periodic_add(const TL& a, const TR& b, decltype(a + b) min,
   return res;
 }
 
-template<std::floating_point T>
+template<meta::floating_point T>
 RAN_DEF bool fequal(T a, T b) noexcept {
   return (std::fabs(a - b) <=
           std::numeric_limits<T>::epsilon() * std::fmax(std::fabs(a), std::fabs(b)));

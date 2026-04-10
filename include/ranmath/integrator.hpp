@@ -1,7 +1,7 @@
 #ifndef RAN_INTEGRATOR_HPP_
 #define RAN_INTEGRATOR_HPP_
 
-#include "./forward.hpp"
+#include <ranmath/forward.hpp>
 
 namespace ran {
 

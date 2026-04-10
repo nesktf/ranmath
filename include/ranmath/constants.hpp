@@ -1,7 +1,7 @@
 #ifndef RAN_CONSTANTS_HPP_
 #define RAN_CONSTANTS_HPP_
 
-#include "./concepts.hpp"
+#include <ranmath/concepts.hpp>
 
 namespace ran {
 

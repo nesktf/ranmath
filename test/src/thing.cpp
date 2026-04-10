@@ -3,5 +3,6 @@
 #include <ranmath/ran.hpp>
 
 TEST_CASE("thing", "[thing]") {
-  REQUIRE(true);
+  ran::Vec3f32 c{};
+  REQUIRE(ran::fequal(c.x, 0.f));
 }

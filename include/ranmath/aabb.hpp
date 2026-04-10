@@ -1,7 +1,7 @@
 #ifndef RAN_AABB_HPP_
 #define RAN_AABB_HPP_
 
-#include "./forward.hpp"
+#include <ranmath/forward.hpp>
 
 namespace ran {
 

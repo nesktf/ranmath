@@ -45,6 +45,7 @@
 #include <algorithm>
 #include <bit>
 #include <cmath>
+#include <concepts>
 #include <limits>
 #include <utility>
 
@@ -55,4 +56,4 @@
   RAN_CONSTEXPR _typename& operator=(const _typename&) noexcept = default; \
   RAN_CONSTEXPR _typename& operator=(_typename&&) noexcept = default
 
-#endif // RAN_VERSION_HPP_
+#endif // #ifndef RAN_VERSION_HPP_

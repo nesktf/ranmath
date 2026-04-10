@@ -1,9 +1,7 @@
 #ifndef RAN_CONCEPTS_HPP_
 #define RAN_CONCEPTS_HPP_
 
-#include "./version.hpp"
-
-#include <concepts>
+#include <ranmath/version.hpp>
 
 namespace ran::meta {
 
