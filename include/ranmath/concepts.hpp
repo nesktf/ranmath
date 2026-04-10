@@ -39,6 +39,10 @@ concept integration_fn = invocable<T, Fn, T> && numeric_type<T>;
 template<typename Fn, typename T>
 concept ode_fn = invocable<T, Fn, T, T> && numeric_type<T>;
 
+template<typename It, typename T>
+concept random_iter_of = std::random_access_iterator<It> &&
+                         std::same_as<typename std::iterator_traits<It>::value_type, T>;
+
 } // namespace ran::meta
 
 #endif // #ifndef RAN_CONCEPTS_HPP_

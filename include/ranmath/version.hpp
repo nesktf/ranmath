@@ -34,8 +34,10 @@
 #define RAN_VER_MIN 0
 #define RAN_VER_REV 1
 
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 
 #ifndef RAN_ASSERT
 #include <cassert>
@@ -44,9 +46,10 @@
 
 #include <algorithm>
 #include <bit>
-#include <cmath>
+#include <complex>
 #include <concepts>
 #include <limits>
+#include <memory>
 #include <utility>
 
 #define RAN_DEFAULT_SPECIAL(_typename)                                     \

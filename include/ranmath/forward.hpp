@@ -2,6 +2,7 @@
 #define RAN_FORWARD_HPP_
 
 #include <ranmath/concepts.hpp>
+#include <ranmath/constants.hpp>
 
 namespace ran {
 
@@ -119,6 +120,12 @@ using Mat4f64 = Mat<4, 4, f64>;
 
 using Quatf32 = Quat<f32>;
 using Quatf64 = Quat<f64>;
+
+template<meta::numeric_type T>
+using Cmplx = std::complex<T>;
+
+using Cmplxf32 = Cmplx<f32>;
+using Cmplxf64 = Cmplx<f64>;
 
 /* Vec2 functions */
 
@@ -683,6 +690,17 @@ struct IntegratorSimp13;
 
 template<meta::numeric_type T>
 struct IntegratorSimp38;
+
+/* Integral Transforms */
+
+template<meta::floating_point T, typename Alloc = std::allocator<Cmplx<T>>>
+struct DFTNaiveFn;
+
+template<meta::floating_point T, typename Alloc = std::allocator<Cmplx<T>>>
+struct DFTRecursiveFn;
+
+template<meta::floating_point T>
+struct DFTInplaceFn;
 
 /* ODE solvers */
 
