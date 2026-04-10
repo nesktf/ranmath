@@ -704,6 +704,9 @@ template<typename T, meta::floating_point U>
 struct EasingElasticIn;
 
 template<typename T, meta::floating_point U>
+struct EasingElasticInOut;
+
+template<typename T, meta::floating_point U>
 struct EasingPow;
 
 /* Interpolators */
@@ -713,8 +716,14 @@ constexpr u32 dynamic_step = std::numeric_limits<u32>::max();
 template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn, u32 StepSize = dynamic_step>
 struct StepLerp;
 
+template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn, u32 StepSize = dynamic_step>
+struct StepLerpFn;
+
 template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn>
 struct DeltaLerp;
+
+template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn>
+struct DeltaLerpFn;
 
 } // namespace ran
 
