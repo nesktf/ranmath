@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_AABB_HPP_
+#define RAN_AABB_HPP_
 
 #include "./forward.hpp"
 
@@ -56,3 +57,5 @@ RAN_DEF bool collision_aabb(const CircPos<T>& a, const CircPos<T>& b) {
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_AABB_HPP_

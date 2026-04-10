@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_VECTOR4_HPP_
+#define RAN_VECTOR4_HPP_
 
 #include "./forward.hpp"
 
@@ -376,3 +377,5 @@ RAN_DEF T dot(const Vec<4, T>& a, const Vec<4, T>& b) noexcept {
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_VECTOR4_HPP_

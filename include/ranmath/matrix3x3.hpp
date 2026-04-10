@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_MATRIX3X3_HPP_
+#define RAN_MATRIX3X3_HPP_
 
 #include "./forward.hpp"
 
@@ -647,3 +648,5 @@ RAN_DEF typename Mat<3, 3, T>::row_type operator/(const Vec<3, U>& vec,
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_MATRIX3X3_HPP_

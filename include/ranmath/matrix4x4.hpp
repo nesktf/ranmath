@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_MATRIX4X4_HPP_
+#define RAN_MATRIX4X4_HPP_
 
 #include "./forward.hpp"
 
@@ -988,3 +989,5 @@ RAN_DEF typename Mat<4, 4, T>::row_type operator/(const Vec<4, U>& vec,
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_MATRIX4X4_HPP_

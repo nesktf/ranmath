@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_QUATERNION_HPP_
+#define RAN_QUATERNION_HPP_
 
 #include "./forward.hpp"
 
@@ -572,3 +573,5 @@ RAN_DEF Vec<4, T> operator*(const Vec<4, U>& v, const Quat<T>& q) noexcept {
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_QUATERNION_HPP_

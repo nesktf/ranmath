@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_INTEGRATOR_HPP_
+#define RAN_INTEGRATOR_HPP_
 
 #include "./forward.hpp"
 
@@ -81,11 +82,13 @@ struct OdeRK4 {
   }
 };
 
-template<typename T>
-struct ode_euler {
+template<meta::numeric_type T>
+struct OdeEuler {
   template<meta::ode_fn<T> Fun>
   RAN_DEF T operator()(T x, T y, T h, Fun&& f) {
     return y + h * f(x, y);
   }
 };
 } // namespace ran
+
+#endif // #ifndef RAN_INTEGRATOR_HPP_

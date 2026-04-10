@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_VECTOR3_HPP_
+#define RAN_VECTOR3_HPP_
 
 #include "./forward.hpp"
 
@@ -400,3 +401,5 @@ RAN_DEF Vec<3, T> cartesian_to_gl(const Vec<3, T>& vec) noexcept {
 }
 
 } // namespace ran
+
+#endif // #ifndef RAN_VECTOR3_HPP_

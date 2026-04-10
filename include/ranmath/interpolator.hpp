@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAN_INTERPOLATOR_HPP_
+#define RAN_INTERPOLATOR_HPP_
 
 #include "./forward.hpp"
 
@@ -409,3 +410,5 @@ private:
 };
 
 } // namespace ran
+
+#endif // #ifndef RAN_INTERPOLATOR_HPP_
