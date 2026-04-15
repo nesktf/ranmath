@@ -5,6 +5,18 @@
 
 namespace ran {
 
+template<meta::numeric_type T>
+struct RectPos {
+  T x, y;
+  T width, height;
+};
+
+template<meta::numeric_type T>
+struct CircPos {
+  T x, y;
+  T radius;
+};
+
 // clang-format off
 template<typename T>
 RAN_DEF bool collision_aabb(const RectPos<T>& a, const RectPos<T>& b) {

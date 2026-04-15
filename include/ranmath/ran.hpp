@@ -15,7 +15,7 @@
 #include <ranmath/quaternion.hpp>
 #include <ranmath/aabb.hpp>
 #include <ranmath/integrator.hpp>
-#include <ranmath/interpolator.hpp>
+#include <ranmath/lerp.hpp>
 // clang-format on
 
 #endif // #ifndef RAN_HPP_

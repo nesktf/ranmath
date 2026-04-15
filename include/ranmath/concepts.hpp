@@ -27,9 +27,6 @@ concept interpolable = requires(T a, T b, U scalar) {
   { scalar* a } -> std::convertible_to<T>;
 };
 
-template<typename Fn, typename T, typename U>
-concept lerp_fn = invocable<Fn, T, const T&, const T&, U>;
-
 // f(T x) -> T
 template<typename Fn, typename T>
 concept integration_fn = invocable<T, Fn, T> && numeric_type<T>;

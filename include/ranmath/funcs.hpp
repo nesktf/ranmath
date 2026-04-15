@@ -134,6 +134,11 @@ RAN_DEF T min(T a, T b) noexcept {
 }
 
 template<meta::numeric_type T>
+RAN_DEF T pow(T a, T b) noexcept {
+  return std::pow(a, b);
+}
+
+template<meta::numeric_type T>
 RAN_DEF T epsilon_err(T a, T b) noexcept {
   return ::ran::abs((b - a) / b);
 }

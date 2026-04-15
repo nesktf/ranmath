@@ -81,6 +81,9 @@ RAN_DECL T max(T a, T b) noexcept;
 template<meta::numeric_type T>
 RAN_DECL T min(T a, T b) noexcept;
 
+template<meta::numeric_type T>
+RAN_DECL T pow(T a, T b) noexcept;
+
 template<meta::numeric_type TL, meta::numeric_type TR>
 RAN_DECL auto periodic_add(const TL& a, const TR& b, decltype(a + b) min,
                            decltype(a + b) max) noexcept;
@@ -657,16 +660,10 @@ RAN_DECL Vec<3, T> to_vec3(const Quat<T>& q) noexcept;
 /* AABB */
 
 template<meta::numeric_type T>
-struct RectPos {
-  T x, y;
-  T width, height;
-};
+struct RectPos;
 
 template<meta::numeric_type T>
-struct CircPos {
-  T x, y;
-  T radius;
-};
+struct CircPos;
 
 template<meta::numeric_type T>
 RAN_DECL bool collision_aabb(const RectPos<T>& a, const RectPos<T>& b);
@@ -710,38 +707,52 @@ struct OdeEuler;
 template<meta::numeric_type T>
 struct OdeRK4;
 
-/* Easing functions */
-
-template<typename T, meta::floating_point U>
-struct EasingLinear;
-
-template<typename T, meta::floating_point U>
-struct EasingLinear;
-
-template<typename T, meta::floating_point U>
-struct EasingElasticIn;
-
-template<typename T, meta::floating_point U>
-struct EasingElasticInOut;
-
-template<typename T, meta::floating_point U>
-struct EasingPow;
-
 /* Interpolators */
 
-constexpr u32 dynamic_step = std::numeric_limits<u32>::max();
+template<meta::floating_point T>
+RAN_DECL T lerp(T a, T b, T t) noexcept;
 
-template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn, u32 StepSize = dynamic_step>
-struct StepLerp;
+template<usize N, meta::floating_point T>
+RAN_DECL Vec<N, T> lerp(const Vec<N, T>& a, const Vec<N, T>& b, T t) noexcept;
 
-template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn, u32 StepSize = dynamic_step>
-struct StepLerpFn;
+template<usize N, meta::floating_point T>
+RAN_DECL Vec<N, T> slerp(const Vec<N, T>& a, const Vec<N, T>& b, T t) noexcept;
 
-template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn>
-struct DeltaLerp;
+template<meta::floating_point T>
+RAN_DECL Quat<T> lerp(const Quat<T>& a, const Quat<T>& b, T t) noexcept;
 
-template<typename T, meta::floating_point U, meta::lerp_fn<T, U> Fn>
-struct DeltaLerpFn;
+template<meta::floating_point T>
+RAN_DECL Quat<T> slerp(const Quat<T>& a, const Quat<T>& b, T t) noexcept;
+
+template<typename Fn>
+struct LerpFn;
+
+template<typename Fn>
+struct SlerpFn;
+
+template<meta::floating_point T>
+struct EasingLinear;
+
+template<meta::floating_point T>
+struct EasingSineIn;
+
+template<meta::floating_point T>
+struct EasingSineOut;
+
+template<meta::floating_point T>
+struct EasingSineInOut;
+
+template<meta::floating_point T>
+struct EasingElasticIn;
+
+template<meta::floating_point T>
+struct EasingElasticOut;
+
+template<meta::floating_point T>
+struct EasingElasticInOut;
+
+template<meta::floating_point T>
+struct EasingPow;
 
 } // namespace ran
 
