@@ -17,7 +17,12 @@ RAN_DEF Vec<N, T> lerp(const Vec<N, T>& a, const Vec<N, T>& b, T t) noexcept {
 
 template<usize N, meta::floating_point T>
 RAN_DEF Vec<N, T> slerp(const Vec<N, T>& a, const Vec<N, T>& b, T t) noexcept {
-  const T c_theta = ::ran::dot(a, b);
+  T c_theta = ::ran::dot(a, b);
+  c_theta = c_theta < T(0) ? -c_theta : c_theta;
+  if (c_theta > T(1) - ::ran::epsilon<T>) {
+    // Normal lerp to avoid sin(theta) == 0
+    return ::ran::lerp(a, b, t);
+  }
   const T theta = ::ran::acos(c_theta);
   const T s_theta = ::ran::sin(theta);
   const T t1 = ::ran::sin((T(1) - t) * theta);
@@ -48,13 +53,12 @@ RAN_DEF Quat<T> slerp(const Quat<T>& a, const Quat<T>& b, T t) noexcept {
   if (c_theta > T(1) - ::ran::epsilon<T>) {
     // Normal lerp to avoid sin(theta) == 0
     return lerp(a, c, t);
-  } else {
-    const T theta = ::ran::acos(c_theta);
-    const T s_theta = ::ran::sin(theta);
-    const T t1 = ::ran::sin((T(1) - t) * theta);
-    const T t2 = ::ran::sin(t * theta);
-    return ((a * t1) + (b * t2)) / s_theta;
   }
+  const T theta = ::ran::acos(c_theta);
+  const T s_theta = ::ran::sin(theta);
+  const T t1 = ::ran::sin((T(1) - t) * theta);
+  const T t2 = ::ran::sin(t * theta);
+  return ((a * t1) + (b * t2)) / s_theta;
 }
 
 template<typename EasingFn>
