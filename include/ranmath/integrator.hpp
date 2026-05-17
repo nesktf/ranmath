@@ -60,12 +60,14 @@ template<meta::numeric_type T>
 struct IntegratorSimp38 {
   template<meta::integration_fn<T> Fun>
   RAN_DEF T operator()(T a, T b, Fun&& f) {
-    const T size = b - a;
-    const T h = size / 4;
-    const T x_1 = a + h;
-    const T x_2 = a + (h * 2);
-
-    return (size / 8) * (f(a) + 3 * f(x_1) + 3 * f(x_2) + f(b));
+    const auto range = b - a;
+    const auto h = range / T(3);
+    const auto x_1 = a + h;
+    const auto x_2 = a + (h * T(2));
+    const auto y_1 = T(3) * f(x_1);
+    const auto y_2 = T(3) * f(x_2);
+    const auto y = f(a) + y_1 + y_2 + f(b);
+    return (T(3) * h * y) / T(8);
   }
 };
 
