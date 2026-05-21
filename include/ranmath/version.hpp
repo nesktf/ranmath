@@ -44,6 +44,17 @@
 #define RAN_ASSERT(_cond) assert(_cond)
 #endif
 
+#ifdef __cpp_exceptions
+#define RAN_THROW(_ex) throw _ex
+#else
+#define RAN_THROW(_ex) RAN_ASSERT(false && "Thrown exception: " #_ex)
+#endif
+
+#define RAN_THROW_IF(_cond, _ex) \
+  if ((_cond)) {                 \
+    RAN_THROW(_ex);              \
+  }
+
 #include <algorithm>
 #include <bit>
 #include <complex>
@@ -58,5 +69,46 @@
   RAN_CONSTEXPR _typename(_typename&&) noexcept = default;                 \
   RAN_CONSTEXPR _typename& operator=(const _typename&) noexcept = default; \
   RAN_CONSTEXPR _typename& operator=(_typename&&) noexcept = default
+
+namespace ran {
+
+class Error : public std::exception {
+public:
+  Error(const char* msg) noexcept : _msg(msg) {}
+
+public:
+  const char* what() const noexcept override { return _msg; }
+
+private:
+  const char* _msg;
+};
+
+namespace numdefs {
+
+using usize = std::size_t;
+using ptrdiff_t = std::ptrdiff_t;
+using uintptr_t = std::uintptr_t;
+
+using u8 = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
+
+using s8 = int8_t;
+using s16 = int16_t;
+using s32 = int32_t;
+using s64 = int64_t;
+
+using f32 = float;
+static_assert(sizeof(f32) == 4);
+
+using f64 = double;
+static_assert(sizeof(f64) == 8);
+
+} // namespace numdefs
+
+using namespace numdefs;
+
+} // namespace ran
 
 #endif // #ifndef RAN_VERSION_HPP_
