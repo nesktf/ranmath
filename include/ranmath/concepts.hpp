@@ -29,12 +29,12 @@ concept interpolable = requires(T a, T b, U scalar) {
 
 // f(T x) -> T
 template<typename Fn, typename T>
-concept integration_fn = invocable<T, Fn, T> && numeric_type<T>;
+concept integration_fn = invocable<Fn, T, T> && numeric_type<T>;
 
 // f(T x, T y) -> T
 // \phi(x, y, h) = f(x, y)
 template<typename Fn, typename T>
-concept ode_fn = invocable<T, Fn, T, T> && numeric_type<T>;
+concept ode_fn = invocable<Fn, T, T, T> && numeric_type<T>;
 
 template<typename It, typename T>
 concept random_iter_of = std::random_access_iterator<It> &&
