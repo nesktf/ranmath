@@ -40,6 +40,11 @@ template<typename It, typename T>
 concept random_iter_of = std::random_access_iterator<It> &&
                          std::same_as<typename std::iterator_traits<It>::value_type, T>;
 
+template<typename T>
+concept bone_metadata = requires(const T& data) {
+  { data.parent } -> std::convertible_to<s32>;
+};
+
 } // namespace ran::meta
 
 #endif // #ifndef RAN_CONCEPTS_HPP_

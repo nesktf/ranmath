@@ -114,6 +114,104 @@ RAN_DEF Mat<4, 4, T> rotate(const Mat<4, 4, T>& m, U angle, const Vec<3, V>& axi
   return out;
 }
 
+template<meta::bone_metadata BoneMetadata, meta::numeric_type T, typename Alloc>
+struct SkelRigTransform {
+public:
+  using matrix_type = Mat<4, 4, T>;
+  using allocator_type = Alloc;
+  using bone_metadata_type = BoneMetadata;
+
+public:
+  RAN_INLINE SkelRigTransform(size_t count, const BoneMetadata* bones, const matrix_type* locals,
+                              const matrix_type* invs, const Alloc& alloc = {}) :
+      _alloc(alloc), _locals(locals), _invs(invs), _bones(bones), _count(count) {
+    RAN_THROW_IF(!_count, ::ran::Error("No bone count"));
+    RAN_THROW_IF(!_bones, ::ran::Error("No bone metadata array"));
+    RAN_THROW_IF(!_locals, ::ran::Error("No local matrix array"));
+    RAN_THROW_IF(!_invs, ::ran::Error("No inverse model matrix array"));
+
+    _cache = _alloc.allocate(2 * count);
+    RAN_THROW_IF(!_cache, std::bad_alloc());
+  }
+
+public:
+  RAN_INLINE void update_bones(const matrix_type& root_transform,
+                               const matrix_type* bone_transforms, matrix_type* output) {
+    matrix_type* locals = _cache;
+    matrix_type* models = _cache + _count;
+
+    // Populate bone local transforms
+    locals[0] = root_transform * _locals[0] * bone_transforms[0];
+    for (usize i = 1; i < _count; ++i) {
+      locals[i] = _locals[i] * bone_transforms[i];
+    }
+
+    // Populate bone model transforms
+    models[0] = locals[0]; // Root transform
+    for (usize i = 1; i < _count; ++i) {
+      const s32 parent = static_cast<s32>(_bones[i].parent);
+      // Since the bone hierarchy is sorted, we should be able to read the
+      // parent model matrix safely
+      RAN_ASSERT(parent < _count);
+      models[i] = models[parent] * locals[i];
+    }
+
+    // Fill output
+    for (usize i = 0; i < _count; ++i) {
+      output[i] = models[i] * _invs[i];
+    }
+  }
+
+  RAN_INLINE void operator()(const matrix_type& root_transform, const matrix_type* transforms,
+                             matrix_type* output) {
+    update_bones(root_transform, transforms, output);
+  }
+
+public:
+  RAN_INLINE ~SkelRigTransform() noexcept {
+    if (_cache) {
+      _alloc.deallocate(_cache, 2 * _count);
+    }
+  }
+
+  RAN_INLINE SkelRigTransform(SkelRigTransform&& other) noexcept :
+      _alloc(std::move(other._alloc)), _locals(other._locals), _invs(other._invs),
+      _bones(other._bones), _count(other._count) {
+    other._cache = nullptr;
+  }
+
+  RAN_INLINE SkelRigTransform& operator=(SkelRigTransform&& other) noexcept {
+    if (&other == this) {
+      return *this;
+    }
+    if (_cache) {
+      _alloc.deallocate(_cache, 2 * _count);
+    }
+
+    _alloc = std::move(other._alloc);
+    _locals = other._locals;
+    _invs = other._invs;
+    _bones = other._bones;
+    _cache = other._cache;
+    _count = other._count;
+
+    other._cache = nullptr;
+
+    return *this;
+  }
+
+  SkelRigTransform(const SkelRigTransform&) = delete;
+  SkelRigTransform& operator=(const SkelRigTransform&) = delete;
+
+private:
+  [[no_unique_address]] Alloc _alloc;
+  const matrix_type* _locals;
+  const matrix_type* _invs;
+  const BoneMetadata* _bones;
+  matrix_type* _cache;
+  size_t _count;
+};
+
 } // namespace ran
 
 #endif // #ifndef RAN_TRANSFORM_HPP_

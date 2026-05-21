@@ -711,6 +711,10 @@ RAN_DECL Mat<4, 4, T> scale(const Mat<4, 4, T>& m, const Vec<3, U>& v) noexcept;
 template<typename T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
 RAN_DECL Mat<4, 4, T> rotate(const Mat<4, 4, T>& m, U angle, const Vec<3, V>& axis) noexcept;
 
+template<meta::bone_metadata BoneMetadata, meta::numeric_type T = ::ran::f32,
+         typename Alloc = std::allocator<Mat<4, 4, T>>>
+struct SkelRigTransform;
+
 /* View transformations */
 
 template<typename T, meta::numeric_convertible<T> U>
