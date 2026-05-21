@@ -6,28 +6,6 @@
 
 namespace ran {
 
-namespace numdefs {
-
-using usize = std::size_t;
-using ptrdiff_t = std::ptrdiff_t;
-using uintptr_t = std::uintptr_t;
-
-using u8 = uint8_t;
-using u16 = uint16_t;
-using u32 = uint32_t;
-using u64 = uint64_t;
-using s8 = int8_t;
-using s16 = int16_t;
-using s32 = int32_t;
-using s64 = int64_t;
-
-using f32 = float;
-using f64 = double;
-
-} // namespace numdefs
-
-using namespace numdefs;
-
 /* Common functions */
 
 template<meta::numeric_type T>
@@ -430,21 +408,6 @@ RAN_DECL Mat<3, 3, T> inverse(const Mat<3, 3, T>& m) noexcept;
 template<typename T>
 RAN_DECL Mat<3, 3, T> transpose(const Mat<3, 3, T>& m) noexcept;
 
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<3, 3, T> translate(const Mat<3, 3, T>& m, const Vec<2, U>& v) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<3, 3, T> scale(const Mat<3, 3, T>& m, const Vec<2, U>& v) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<3, 3, T> rotate(const Mat<3, 3, T>& m, U ang) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<3, 3, T> lookat_rh(const Vec<3, T>& dir, const Vec<3, U>& up) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<3, 3, T> lookat_lh(const Vec<3, T>& dir, const Vec<3, U>& up) noexcept;
-
 /* Mat4 functions */
 
 template<typename T>
@@ -520,37 +483,11 @@ RAN_DECL Mat<4, 4, T> inverse(const Mat<4, 4, T>& m) noexcept;
 template<typename T>
 RAN_DECL Mat<4, 4, T> transpose(const Mat<4, 4, T>& m) noexcept;
 
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<4, 4, T> translate(const Mat<4, 4, T>& m, const Vec<3, U>& v) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U>
-RAN_DECL Mat<4, 4, T> scale(const Mat<4, 4, T>& m, const Vec<3, U>& v) noexcept;
-
-template<typename T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
-RAN_DECL Mat<4, 4, T> rotate(const Mat<4, 4, T>& m, U angle, const Vec<3, V>& axis) noexcept;
-
 template<typename T>
 RAN_DECL Mat<3, 3, T> to_mat3(const Mat<4, 4, T>& m) noexcept;
 
 template<typename T>
 RAN_DECL Mat<4, 4, T> to_mat4(const Mat<3, 3, T>& m) noexcept;
-
-template<typename T>
-RAN_DECL Mat<4, 4, T> lookat_rh(const Vec<3, T>& pos, const Vec<3, T>& center,
-                                const Vec<3, T>& up) noexcept;
-
-template<typename T>
-RAN_DECL Mat<4, 4, T> lookat_lh(const Vec<3, T>& pos, const Vec<3, T>& center,
-                                const Vec<3, T>& up) noexcept;
-
-template<typename T>
-RAN_DECL Mat<4, 4, T> ortho(T left, T right, T bottom, T top) noexcept;
-
-template<typename T>
-RAN_DECL Mat<4, 4, T> ortho(T left, T right, T bottom, T top, T znear, T zfar) noexcept;
-
-template<typename T>
-RAN_DECL Mat<4, 4, T> perspective(T fov, T aspect, T znear, T zfar) noexcept;
 
 /* Quat functions */
 
@@ -753,6 +690,51 @@ struct EasingElasticInOut;
 
 template<meta::floating_point T>
 struct EasingPow;
+
+/* Space transformations */
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<3, 3, T> translate(const Mat<3, 3, T>& m, const Vec<2, U>& v) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<3, 3, T> scale(const Mat<3, 3, T>& m, const Vec<2, U>& v) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<3, 3, T> rotate(const Mat<3, 3, T>& m, U ang) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<4, 4, T> translate(const Mat<4, 4, T>& m, const Vec<3, U>& v) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<4, 4, T> scale(const Mat<4, 4, T>& m, const Vec<3, U>& v) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
+RAN_DECL Mat<4, 4, T> rotate(const Mat<4, 4, T>& m, U angle, const Vec<3, V>& axis) noexcept;
+
+/* View transformations */
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<3, 3, T> lookat_rh(const Vec<3, T>& dir, const Vec<3, U>& up) noexcept;
+
+template<typename T, meta::numeric_convertible<T> U>
+RAN_DECL Mat<3, 3, T> lookat_lh(const Vec<3, T>& dir, const Vec<3, U>& up) noexcept;
+
+template<typename T>
+RAN_DECL Mat<4, 4, T> lookat_rh(const Vec<3, T>& pos, const Vec<3, T>& center,
+                                const Vec<3, T>& up) noexcept;
+
+template<typename T>
+RAN_DECL Mat<4, 4, T> lookat_lh(const Vec<3, T>& pos, const Vec<3, T>& center,
+                                const Vec<3, T>& up) noexcept;
+
+template<typename T>
+RAN_DECL Mat<4, 4, T> ortho(T left, T right, T bottom, T top) noexcept;
+
+template<typename T>
+RAN_DECL Mat<4, 4, T> ortho(T left, T right, T bottom, T top, T znear, T zfar) noexcept;
+
+template<typename T>
+RAN_DECL Mat<4, 4, T> perspective(T fov, T aspect, T znear, T zfar) noexcept;
 
 } // namespace ran
 

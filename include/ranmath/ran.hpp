@@ -13,6 +13,8 @@
 #include <ranmath/matrix3x3.hpp>
 #include <ranmath/matrix4x4.hpp>
 #include <ranmath/quaternion.hpp>
+#include <ranmath/transform_view.hpp>
+#include <ranmath/transform_space.hpp>
 #include <ranmath/aabb.hpp>
 #include <ranmath/integrator.hpp>
 #include <ranmath/lerp.hpp>
