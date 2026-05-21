@@ -122,7 +122,7 @@ public:
   using bone_metadata_type = BoneMetadata;
 
 public:
-  RAN_INLINE SkelRigTransform(size_t count, const BoneMetadata* bones, const matrix_type* locals,
+  RAN_INLINE SkelRigTransform(usize count, const BoneMetadata* bones, const matrix_type* locals,
                               const matrix_type* invs, const Alloc& alloc = {}) :
       _alloc(alloc), _locals(locals), _invs(invs), _bones(bones), _count(count) {
     RAN_THROW_IF(!_count, ::ran::Error("No bone count"));
@@ -152,7 +152,7 @@ public:
       const s32 parent = static_cast<s32>(_bones[i].parent);
       // Since the bone hierarchy is sorted, we should be able to read the
       // parent model matrix safely
-      RAN_ASSERT(parent < _count);
+      RAN_ASSERT(parent < (s32)_count);
       models[i] = models[parent] * locals[i];
     }
 
@@ -174,13 +174,15 @@ public:
     }
   }
 
-  RAN_INLINE SkelRigTransform(SkelRigTransform&& other) noexcept :
+  RAN_INLINE SkelRigTransform(SkelRigTransform&& other) noexcept(
+    std::is_nothrow_move_constructible_v<Alloc>) :
       _alloc(std::move(other._alloc)), _locals(other._locals), _invs(other._invs),
       _bones(other._bones), _count(other._count) {
     other._cache = nullptr;
   }
 
-  RAN_INLINE SkelRigTransform& operator=(SkelRigTransform&& other) noexcept {
+  RAN_INLINE SkelRigTransform&
+  operator=(SkelRigTransform&& other) noexcept(std::is_nothrow_move_assignable_v<Alloc>) {
     if (&other == this) {
       return *this;
     }
@@ -203,13 +205,16 @@ public:
   SkelRigTransform(const SkelRigTransform&) = delete;
   SkelRigTransform& operator=(const SkelRigTransform&) = delete;
 
+public:
+  usize bone_count() const noexcept { return _count; }
+
 private:
   [[no_unique_address]] Alloc _alloc;
   const matrix_type* _locals;
   const matrix_type* _invs;
   const BoneMetadata* _bones;
   matrix_type* _cache;
-  size_t _count;
+  usize _count;
 };
 
 } // namespace ran
