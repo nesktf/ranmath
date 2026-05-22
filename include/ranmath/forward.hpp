@@ -603,16 +603,16 @@ template<meta::numeric_type T>
 struct Circ2D;
 
 template<meta::numeric_type T, meta::numeric_convertible<T> U>
-RAN_DECL bool collision_aabb(const Rect2D<T>& rect_a, const Rect2D<T>& rect_b);
+RAN_DECL bool collision_aabb(const Rect2D<T>& rect_a, const Rect2D<U>& rect_b);
 
 template<meta::numeric_type T, meta::numeric_convertible<T> U>
-RAN_DECL bool collision_aabb(const Rect2D<T>& rect, const Circ2D<T>& circ);
+RAN_DECL bool collision_aabb(const Rect2D<T>& rect, const Circ2D<U>& circ);
 
 template<meta::numeric_type T, meta::numeric_convertible<T> U>
-RAN_DECL bool collision_aabb(const Circ2D<T>& circ, const Rect2D<T>& rect);
+RAN_DECL bool collision_aabb(const Circ2D<T>& circ, const Rect2D<U>& rect);
 
 template<meta::numeric_type T, meta::numeric_convertible<T> U>
-RAN_DECL bool collision_aabb(const Circ2D<T>& circ_a, const Circ2D<T>& circ_b);
+RAN_DECL bool collision_aabb(const Circ2D<T>& circ_a, const Circ2D<U>& circ_b);
 
 template<meta::numeric_type T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
 RAN_DECL bool collision_aabb(const Rect2D<T> rect, U angle, const Circ2D<V>& circ);
