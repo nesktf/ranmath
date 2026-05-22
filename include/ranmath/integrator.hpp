@@ -8,18 +8,18 @@ namespace ran {
 template<meta::numeric_type T>
 struct IntegratorTrap {
   template<meta::integration_fn<T> Fun>
-  RAN_DEF T operator()(T a, T b, Fun&& f) {
+  RAN_DEF T operator()(T a, T b, Fun&& f) const {
     const T size = b - a;
     return (size / 2) * (f(a) + f(b));
   }
 
   template<meta::integration_fn<T> Fun>
-  RAN_DEF T operator()(T a, T b, uint n, Fun&& f) {
+  RAN_DEF T operator()(T a, T b, u32 n, Fun&& f) const {
     const T size = b - a;
     const T h = size / static_cast<T>(n);
 
     T out = f(a);
-    for (uint i = 1; i < n; ++i) {
+    for (u32 i = 1; i < n; ++i) {
       out += 2 * f(a + (i * h));
     }
     out += f(b);
@@ -31,7 +31,7 @@ struct IntegratorTrap {
 template<meta::numeric_type T>
 struct IntegratorSimp13 {
   template<meta::integration_fn<T> Fun>
-  RAN_DEF T operator()(T a, T b, Fun&& f) {
+  RAN_DEF T operator()(T a, T b, Fun&& f) const {
     const T size = b - a;
     const T x_1 = a + ((b - a) / 3);
 
@@ -39,15 +39,15 @@ struct IntegratorSimp13 {
   }
 
   template<meta::integration_fn<T> Fun>
-  RAN_DEF T operator()(T a, T b, uint n, Fun&& f) {
+  RAN_DEF T operator()(T a, T b, u32 n, Fun&& f) const {
     const T size = b - a;
     const T h = size / static_cast<T>(n);
 
     T out = f(a);
-    for (uint i = 1; i < n; i += 2) {
+    for (u32 i = 1; i < n; i += 2) {
       out += 4 * f(a + (i * h)); // Odd
     }
-    for (uint i = 2; i < n; i += 2) {
+    for (u32 i = 2; i < n; i += 2) {
       out += 2 * f(a + (i * h)); // Even
     }
     out += f(b);
@@ -59,7 +59,7 @@ struct IntegratorSimp13 {
 template<meta::numeric_type T>
 struct IntegratorSimp38 {
   template<meta::integration_fn<T> Fun>
-  RAN_DEF T operator()(T a, T b, Fun&& f) {
+  RAN_DEF T operator()(T a, T b, Fun&& f) const {
     const auto range = b - a;
     const auto h = range / T(3);
     const auto x_1 = a + h;
@@ -74,7 +74,7 @@ struct IntegratorSimp38 {
 template<meta::numeric_type T>
 struct OdeRK4 {
   template<meta::ode_fn<T> Fun>
-  RAN_DEF T operator()(T x, T y, T h, Fun&& f) {
+  RAN_DEF T operator()(T x, T y, T h, Fun&& f) const {
     const auto k1 = h * f(x, y);
     const auto k2 = h * f(x + h * T{0.5}, y + k1 * T{0.5});
     const auto k3 = h * f(x + h * T{0.5}, y + k2 * T{0.5});
@@ -87,7 +87,7 @@ struct OdeRK4 {
 template<meta::numeric_type T>
 struct OdeEuler {
   template<meta::ode_fn<T> Fun>
-  RAN_DEF T operator()(T x, T y, T h, Fun&& f) {
+  RAN_DEF T operator()(T x, T y, T h, Fun&& f) const {
     return y + h * f(x, y);
   }
 };
@@ -204,7 +204,7 @@ public:
 
 public:
   template<meta::random_iter_of<cmplx_type> It>
-  RAN_DEF void operator()(It samples_begin, It samples_end, bool inv) {
+  RAN_DEF void operator()(It samples_begin, It samples_end, bool inv) const {
     const auto n_it = std::distance(samples_begin, samples_end);
     if (n_it <= 0) {
       return;
