@@ -63,7 +63,7 @@ RAN_DEF bool collision_aabb(const Circ2D<T>& circ_a, const Circ2D<U>& circ_b) {
   return sq_len < sq_sum;
 }
 
-template<meta::numeric_type T, meta::numeric_type U, meta::numeric_convertible<T> V>
+template<meta::numeric_type T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
 RAN_DEF bool collision_aabb(const Rect2D<T> rect, U angle, const Circ2D<V>& circ) {
   const auto dx = static_cast<T>(circ.x) - rect.x;
   const auto dy = static_cast<T>(circ.y) - rect.y;

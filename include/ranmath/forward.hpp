@@ -614,7 +614,7 @@ RAN_DECL bool collision_aabb(const Circ2D<T>& circ, const Rect2D<T>& rect);
 template<meta::numeric_type T, meta::numeric_convertible<T> U>
 RAN_DECL bool collision_aabb(const Circ2D<T>& circ_a, const Circ2D<T>& circ_b);
 
-template<meta::numeric_type T, meta::numeric_type U, meta::numeric_convertible<T> V>
+template<meta::numeric_type T, meta::numeric_convertible<T> U, meta::numeric_convertible<T> V>
 RAN_DECL bool collision_aabb(const Rect2D<T> rect, U angle, const Circ2D<V>& circ);
 
 /* Integrators */
