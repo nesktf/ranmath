@@ -597,22 +597,25 @@ RAN_DECL Vec<3, T> to_vec3(const Quat<T>& q) noexcept;
 /* AABB */
 
 template<meta::numeric_type T>
-struct RectPos;
+struct Rect2D;
 
 template<meta::numeric_type T>
-struct CircPos;
+struct Circ2D;
 
-template<meta::numeric_type T>
-RAN_DECL bool collision_aabb(const RectPos<T>& a, const RectPos<T>& b);
+template<meta::numeric_type T, meta::numeric_convertible<T> U>
+RAN_DECL bool collision_aabb(const Rect2D<T>& rect_a, const Rect2D<T>& rect_b);
 
-template<meta::numeric_type T>
-RAN_DECL bool collision_aabb(const RectPos<T>& a, const CircPos<T>& b);
+template<meta::numeric_type T, meta::numeric_convertible<T> U>
+RAN_DECL bool collision_aabb(const Rect2D<T>& rect, const Circ2D<T>& circ);
 
-template<meta::numeric_type T>
-RAN_DECL bool collision_aabb(const CircPos<T>& a, const RectPos<T>& b);
+template<meta::numeric_type T, meta::numeric_convertible<T> U>
+RAN_DECL bool collision_aabb(const Circ2D<T>& circ, const Rect2D<T>& rect);
 
-template<meta::numeric_type T>
-RAN_DECL bool collision_aabb(const CircPos<T>& a, const CircPos<T>& b);
+template<meta::numeric_type T, meta::numeric_convertible<T> U>
+RAN_DECL bool collision_aabb(const Circ2D<T>& circ_a, const Circ2D<T>& circ_b);
+
+template<meta::numeric_type T, meta::numeric_type U, meta::numeric_convertible<T> V>
+RAN_DECL bool collision_aabb(const Rect2D<T> rect, U angle, const Circ2D<V>& circ);
 
 /* Integrators */
 
