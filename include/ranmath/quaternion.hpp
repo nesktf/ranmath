@@ -11,7 +11,7 @@ public:
   using value_type = T;
   static RAN_CONSTEXPR u32 component_count = 4;
 
-  static RAN_CONSTEXPR Quat identity() noexcept { return Quat{T(1)}; }
+  static RAN_CONSTEXPR Quat identity() noexcept { return Quat{T(1), T(0), T(0), T(0)}; }
 
 public:
   RAN_DEFAULT_SPECIAL(Quat);

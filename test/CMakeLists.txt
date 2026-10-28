@@ -9,13 +9,15 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -Wall -Wextra -Wpedantic -O3 -Wno-ps
 
 file(GLOB RAN_TEST_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-message(STATUS "RanMath: Fetching Catch2 contents...")
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v3.8.1
-)
-FetchContent_MakeAvailable(Catch2)
+if (NOT TARGET Catch2::Catch2WithMain)
+  message(STATUS "RanMath: Fetching Catch2 contents...")
+  FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.8.1
+  )
+  FetchContent_MakeAvailable(Catch2)
+endif()
 
 set(CATCH_BUILD_TESTING OFF)
 enable_testing()

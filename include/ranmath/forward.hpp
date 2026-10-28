@@ -94,9 +94,9 @@ using Vec2u32 = Vec<2, u32>;
 using Vec3u32 = Vec<3, u32>;
 using Vec4u32 = Vec<4, u32>;
 
-using Mat3f32 = Mat<4, 4, f32>;
+using Mat3f32 = Mat<3, 3, f32>;
 using Mat4f32 = Mat<4, 4, f32>;
-using Mat3f64 = Mat<4, 4, f64>;
+using Mat3f64 = Mat<3, 3, f64>;
 using Mat4f64 = Mat<4, 4, f64>;
 
 using Quatf32 = Quat<f32>;
