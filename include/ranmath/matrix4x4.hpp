@@ -46,32 +46,9 @@ public:
       w4(static_cast<T>(w4_)) {}
 
 public:
-  RAN_DEF const T& operator[](size_t idx) const noexcept {
-    switch (idx) {
-      default:
-        [[fallthrough]];
-      case 0:
-        return x1;
-      case 1:
-        return y1;
-      case 2:
-        return z1;
-      case 3:
-        return x2;
-      case 4:
-        return y2;
-      case 5:
-        return z2;
-      case 6:
-        return x3;
-      case 7:
-        return y3;
-      case 8:
-        return z3;
-    }
-  }
+  RAN_DEF const T& operator[](size_t idx) const noexcept { return data()[idx]; }
 
-  RAN_DEF T& operator[](size_t idx) noexcept { return const_cast<T&>(std::as_const(*this)[idx]); }
+  RAN_DEF T& operator[](size_t idx) noexcept { return data()[idx]; }
 
   RAN_DEF col_type column_at(size_t idx) const noexcept {
     switch (idx) {
