@@ -741,6 +741,9 @@ template<typename T>
 RAN_DECL Mat<4, 4, T> ortho(T left, T right, T bottom, T top, T znear, T zfar) noexcept;
 
 template<typename T>
+RAN_DECL Mat<4, 4, T> ortho_rh(T left, T right, T bottom, T top, T znear, T zfar) noexcept;
+
+template<typename T>
 RAN_DECL Mat<4, 4, T> perspective(T fov, T aspect, T znear, T zfar) noexcept;
 
 } // namespace ran

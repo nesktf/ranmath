@@ -125,6 +125,18 @@ RAN_DEF Mat<4, 4, T> ortho(T left, T right, T bottom, T top, T znear, T zfar) no
 }
 
 template<typename T>
+RAN_DEF Mat<4, 4, T> ortho_rh(T left, T right, T bottom, T top, T znear, T zfar) noexcept {
+  Mat<4, 4, T> out(T(1));
+  out.x1 = T(2) / (right - left);
+  out.y2 = T(2) / (top - bottom);
+  out.z3 = T(-2) / (zfar - znear);
+  out.x4 = -(right + left) / (right - left);
+  out.y4 = -(top + bottom) / (top - bottom);
+  out.z4 = -(zfar + znear) / (zfar - znear);
+  return out;
+}
+
+template<typename T>
 RAN_DEF Mat<4, 4, T> perspective(T fov, T aspect, T znear, T zfar) noexcept {
   if constexpr (std::floating_point<T>) {
     if (::ran::fequal(fov, T(0))) {
