@@ -489,9 +489,9 @@ RAN_DEF Quat<T> to_quat(T angle, const Vec<3, U>& axis) noexcept {
   const Vec<3, U> norm = ::ran::normalize(axis);
   Quat<T> out;
   out.w = ::ran::cos(angle * T(0.5));
-  out.x = ::ran::sin(angle * T(0.5)) * axis.x;
-  out.y = ::ran::sin(angle * T(0.5)) * axis.y;
-  out.z = ::ran::sin(angle * T(0.5)) * axis.z;
+  out.x = ::ran::sin(angle * T(0.5)) * norm.x;
+  out.y = ::ran::sin(angle * T(0.5)) * norm.y;
+  out.z = ::ran::sin(angle * T(0.5)) * norm.z;
   return out;
 }
 
@@ -539,6 +539,11 @@ template<typename T>
 RAN_DEF T yaw(const Quat<T>& q) noexcept {
   const T v = T(-2) * ((q.x * q.z) - (q.w * q.y));
   return ::ran::asin(::ran::clamp(v, T(-1), T(1)));
+}
+
+template<typename T>
+RAN_DEF Vec<3, T> to_vec3(const Quat<T>& q) noexcept {
+  return Vec<3, T>{q.x, q.y, q.z};
 }
 
 template<typename T>
