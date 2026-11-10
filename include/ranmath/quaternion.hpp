@@ -555,6 +555,13 @@ RAN_DEF Vec<3, T> to_euler(const Quat<T>& q) noexcept {
   return out;
 }
 
+template<typename T>
+RAN_DEF Quat<T> normalize(const Quat<T>& q) noexcept {
+  constexpr auto len_threshold = T(1e-8);
+  const auto d = ::ran::dot(q, q);
+  return d > len_threshold ? q * (1.0f / ::ran::sqrt(d)) : ::ran::Quat<T>::identity();
+}
+
 template<meta::numeric_type T>
 template<meta::numeric_convertible<T> U>
 RAN_DEF Quat<T>::Quat(const Vec<3, U>& euler) noexcept : Quat(::ran::to_quat(euler)) {}

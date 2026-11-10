@@ -108,8 +108,8 @@ RAN_DEF T rad(T degs) noexcept {
   return degs * static_cast<T>(0.01745329251994329576923690768489);
 }
 
-template<typename T>
-RAN_DEF T deg(T rads) {
+template<meta::numeric_type T>
+RAN_DEF T deg(T rads) noexcept {
   return rads * static_cast<T>(57.295779513082320876798154814105);
 }
 

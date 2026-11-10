@@ -565,6 +565,9 @@ template<typename T>
 RAN_DECL Vec<3, T> to_euler(const Quat<T>& q) noexcept;
 
 template<typename T>
+RAN_DECL Quat<T> normalize(const Quat<T>& q) noexcept;
+
+template<typename T>
 RAN_DECL T roll(const Quat<T>& q) noexcept;
 
 template<typename T>
